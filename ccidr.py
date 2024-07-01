@@ -1,49 +1,50 @@
-import argparse
-from netaddr import IPSet, IPNetwork
-from termcolor import colored
+# -*- coding: utf-8 -*-
 
-def deduplicate_cidrs(input_file, output_file):
-    # Read the list of CIDR ranges from the input file
-    with open(input_file, 'r') as f:
-        cidr_ranges = [line.strip() for line in f.readlines()]
+"""
+CCIDR - Command Line Tool for CIDR Deduplication
 
-    # Use IPSet to manage and deduplicate the CIDR ranges
-    ip_set = IPSet()
+Usage:
+  ccidr.py [-l <input_file>] [-o <output_file>]
+  ccidr.py -h | --help
 
-    for cidr in cidr_ranges:
-        ip_set.add(IPNetwork(cidr))
+Options:
+  -l --input <input_file>    Input file containing CIDR blocks
+  -o --output <output_file>  Output file to save deduplicated CIDR blocks
+  -h --help                  Show this help message and exit
+"""
 
-    # Get the cleaned list of CIDR ranges
-    cleaned_cidrs = list(ip_set.iter_cidrs())
+from docopt import docopt
 
-    # Save the cleaned list to the output file
-    with open(output_file, 'w') as f:
-        for cidr in cleaned_cidrs:
-            f.write(str(cidr) + '\n')
+def main(args):
+    if args['--input'] and args['--output']:
+        input_file = args['--input']
+        output_file = args['--output']
+        # Process input_file and output_file as needed
+        print("Input file: {}".format(input_file))
+        print("Output file: {}".format(output_file))
+    else:
+        print("""
+\033[94m ██████╗ ██████╗██╗██████╗ ██████╗ \033[0m
+\033[94m██╔════╝██╔════╝██║██╔══██╗██╔══██╗\033[0m
+\033[94m██║     ██║     ██║██║  ██║██████╔╝\033[0m
+\033[94m██║     ██║     ██║██║  ██║██╔══██╗\033[0m
+\033[94m╚██████╗╚██████╗██║██████╔╝██║  ██║\033[0m
+\033[94m ╚═════╝ ╚═════╝╚═╝╚═════╝ ╚═╝  ╚═╝\033[0m
+\033[91mDeveloped By Bl4ck7\033[0m
+\033[91mhttps://github.com/Mr-Bl4ck7\033[0m
+                                   
+CCIDR - Command Line Tool for CIDR Deduplication
 
-def print_logo():
-    logo = """
+Usage:
+  ccidr.py -l <input_file> -o <output_file>
+  ccidr.py -h | --help
 
- ██████╗ ██████╗██╗██████╗ ██████╗ 
-██╔════╝██╔════╝██║██╔══██╗██╔══██╗
-██║     ██║     ██║██║  ██║██████╔╝
-██║     ██║     ██║██║  ██║██╔══██╗
-╚██████╗╚██████╗██║██████╔╝██║  ██║
- ╚═════╝ ╚═════╝╚═╝╚═════╝ ╚═╝  ╚═╝
-                                  
-    print(colored(logo, 'blue'))
-    print(colored('Developed By Bl4ck7', 'red'))
-
-def main():
-    print_logo()
-
-    parser = argparse.ArgumentParser(description='CCIDR - CIDR Deduplication Tool')
-    parser.add_argument('-l', '--list', required=True, help='Input file containing list of CIDR ranges')
-    parser.add_argument('-o', '--output', required=True, help='Output file to save deduplicated CIDR ranges')
-
-    args = parser.parse_args()
-
-    deduplicate_cidrs(args.list, args.output)
+Options:
+  -l --input <input_file>    Input file containing CIDR blocks
+  -o --output <output_file>  Output file to save deduplicated CIDR blocks
+  -h --help                  Show this help message and exit
+        """)
 
 if __name__ == '__main__':
-    main()
+    args = docopt(__doc__)
+    main(args)
