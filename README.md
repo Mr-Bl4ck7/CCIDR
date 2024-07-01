@@ -26,6 +26,9 @@ Developed by [Bl4ck7](https://github.com/Mr-Bl4ck7)
     ```sh
     pip install -r requirements.txt
     ```
+    ```sh
+    pip3 install -r requirements.txt
+    ```
 
 ## Usage
 
@@ -37,5 +40,8 @@ Developed by [Bl4ck7](https://github.com/Mr-Bl4ck7)
 ### Example
 
 To run the script, use the following command:
-```sh
-python ccidr.py -l cidr_list.txt -o cleaned_cidr_list.txt
+
+    python ccidr.py
+    python3 ccidr.py
+    python ccidr.py -l cidr_list.txt -o cleaned_cidr_list.txt
+    python3 ccidr.py -l cidr_list.txt -o cleaned_cidr_list.txt
